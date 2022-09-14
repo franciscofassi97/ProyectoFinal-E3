@@ -18,7 +18,8 @@ const crearProducto = () => {
   return false;
 };
 
-socket.on("leerProductos", (productos) => {
+socket.on("leerProductos", async (productos) => {
+  console.log(productos);
   if (productos.length > 0) {
     document.getElementById("tbodyProductos").innerHTML = "";
     document.getElementById("divErrors").innerHTML = "";
@@ -27,9 +28,13 @@ socket.on("leerProductos", (productos) => {
       let producto = productos[i];
       let productoHTML = `
            <tr>
-           	<td>${producto.title}</td>
-           	<td>${producto.price}</td>
-           	<td><img style="width: 50px; height:50px" src=${thumbnail} alt=""></td>
+           <td id='${productos._id || productos.id}'></td>
+           	<td>${producto.nombre}</td>
+           	<td>${producto.descripcion}</td>
+             <td>${producto.codigo}</td>
+             <td>${producto.precio}</td>
+             td>${producto.stock}</td>
+           	<td><img style="width: 50px; height:50px" src=${producto.fotoUrl} alt=""></td>
            </tr>
            `;
       document.getElementById("tbodyProductos").innerHTML += productoHTML;
@@ -96,7 +101,6 @@ socket.on("leerMensajes", (mensajes) => {
       "<h1>No hay Mensajes</h1>";
   }
 });
-
 
 
 

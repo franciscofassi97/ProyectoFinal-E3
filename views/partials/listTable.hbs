@@ -1,5 +1,5 @@
 <h1>Lista de Productos</h1>
-{{!-- {{#if products }} --}}
+{{#if products }}
 <div class="box">
     <div id="divErrors"></div>
     <table id="tableProductos">
@@ -11,18 +11,22 @@
             </tr>
         </thead>
         <tbody id="tbodyProductos">
-            {{!-- {{#each products}} --}}
-            {{!-- <tr> --}}
-                {{!-- <td>{{title}}</td> --}}
-                {{!-- <td>{{price}}</td> --}}
-                {{!-- <td><img src={{thumbnail}} alt="imagen" height="50px" width="50px" /></td> --}}
-                {{!-- </tr> --}}
-            {{!-- {{/each}} --}}
+            {{#each products}}
+            <tr>
+                <td>{{nombre}}</td>
+                <td>{{precio}}</td>
+                <td>{{descripcion}}</td>
+                <td>{{codigo}}</td>
+                <td>{{stock}}</td>
+                <td>{{precio}}</td>
+                <td><img src={{fotoUrl}} alt="imagen" height="50px" width="50px" /></td>
+                </tr>
+            {{/each}}
         </tbody>
     </table>
 </div>
-{{!-- {{else}}
+{{else}}
 <div class="box">
     <h2>No hay productos registrados</h2>
 </div>
-{{/if}} --}}
+{{/if}}

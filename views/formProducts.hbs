@@ -1,4 +1,5 @@
-<section>
+
+<section id="sectionProductos">
 	<h1>Cargar producto</h1>
 	<div class="box">
 		<h1>Bienvenido {{nombreUsuario}}</h1>
@@ -9,15 +10,25 @@
 		<br>
 		<div class="box">
 			{{!-- <form action="/api/productos/create" method="post"> --}}
-				<form onsubmit="return crearProducto()">
-					<label for="title">Nombre</label>
-					<input type="text" name="title" placeholder="Ingrese nombre" id="title">
+				{{!-- <form onsubmit="return crearProducto()"> --}}
+				<form action="/api/productos" method="post">
+					<label for="nombre">Nombre</label>
+					<input type="text" name="nombre" placeholder="Ingrese nombre" id="nombre">
 					<br>
-					<label for="price">Precio</label>
-					<input type="text" name="price" placeholder="Ingrese precio" id="price">
+					<label for="precio">Precio</label>
+					<input type="number" name="precio" placeholder="Ingrese precio" id="precio">
 					<br>
-					<label for="thumbnail">Url imagen</label>
-					<input type="text" name="thumbnail" placeholder="Ingrese Url de imagen" id="thumbnail">
+					<label for="descripcion">Descripcion</label>
+					<input type="text" name="descripcion" placeholder="Ingrese precio" id="descripcion">
+					<br>
+					<label for="codigo">codigo</label>
+					<input type="text" name="codigo" placeholder="Ingrese precio" id="codigo">
+					<br>
+					<label for="stock">stock</label>
+					<input type="number" name="stock" placeholder="Ingrese precio" id="stock">
+					<br>
+					<label for="fotoUrl">Url imagen</label>
+					<input type="text" name="fotoUrl" placeholder="Ingrese Url de imagen" id="fotoUrl">
 					<br>
 					<input type="submit" value="Guardar">
 				</form>
