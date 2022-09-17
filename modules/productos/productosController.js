@@ -21,8 +21,8 @@ router.post("/", async (req, res) => {
       stock
     });
 
-    // if (id) return res.status(200).json({ idProducto: id });
-    if (id) return res.status(200).redirect('/api/productos')
+    if (id) return res.status(200).json({ idProducto: id });
+    // if (id) return res.status(200).redirect('/api/productos')
   } catch (error) {
     res.status(500).json({
       success: false,

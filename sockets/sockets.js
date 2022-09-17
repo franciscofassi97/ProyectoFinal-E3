@@ -2,6 +2,7 @@ const definirContenedor = require('../modules/daos');
 // const normalizarMensaje = require("../normalizer");
 
 const { getAllProductosService, agregarProductoService } = require('../modules/productos/productosServices');
+const { saveCarritoService, addProcutoToCarritoService } = require('../modules/carrito/carritoSerivices');
 
 module.exports = (server) => {
   const { Server: IoServer } = require("socket.io");
@@ -20,7 +21,26 @@ module.exports = (server) => {
     //Prodcutos
     socket.on("agregarProducto", async (producto) => {
       const idProducto = await agregarProductoService(producto);
-      // if (idProducto) ioSocket.sockets.emit("leerProductos", await getAllProductosService());
+      if (idProducto) ioSocket.sockets.emit("leerProductos", await getAllProductosService());
+    });
+
+    socket.on("crearCarritoConProductos", async (arrayProductos) => {
+      let error = false;
+
+      const carrito = {
+        timesTamp: new Date(),
+        productos: []
+      };
+      const idCarrito = await saveCarritoService(carrito)
+
+      for (let i = 0; i < arrayProductos.length; i++) {
+        const producto = arrayProductos[i];
+        const productoAgregadoAlCarrito = await addProcutoToCarritoService(producto.idProducto, idCarrito)
+        console.log(productoAgregadoAlCarrito);
+        if (!productoAgregadoAlCarrito) return error = true;
+      };
+      socket.emit("finAgregarAlCarrito", error);
+
     });
 
     // //Chat

@@ -11,7 +11,7 @@
 		<div class="box">
 			{{!-- <form action="/api/productos/create" method="post"> --}}
 				{{!-- <form onsubmit="return crearProducto()"> --}}
-				<form action="/api/productos" method="post">
+				<form onsubmit="return crearProducto()">
 					<label for="nombre">Nombre</label>
 					<input type="text" name="nombre" placeholder="Ingrese nombre" id="nombre">
 					<br>
@@ -33,9 +33,10 @@
 					<input type="submit" value="Guardar">
 				</form>
 				<br>
-
 		</div>
 </section>
 {{> listTable }}
+
+{{> carrito }}
 
 {{> chat }}
