@@ -63,7 +63,10 @@ const agregarAlCarrito = (idProducto, nombre, precio) => {
 }
 
 const onConfirmarCompra = () => {
-  socket.emit("crearCarritoConProductos", productosAgregarAlCarrito);
+  const elementUsuario = document.getElementsByClassName('emailUsuario')
+  const emailUsuairo = elementUsuario[0].id;
+
+  socket.emit("crearCarritoConProductos", productosAgregarAlCarrito, emailUsuairo);
   return false;
 }
 

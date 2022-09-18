@@ -24,12 +24,13 @@ module.exports = (server) => {
       if (idProducto) ioSocket.sockets.emit("leerProductos", await getAllProductosService());
     });
 
-    socket.on("crearCarritoConProductos", async (arrayProductos) => {
+    socket.on("crearCarritoConProductos", async (arrayProductos, emailUsuario) => {
       let error = false;
 
       const carrito = {
         timesTamp: new Date(),
-        productos: []
+        productos: [],
+        emailUsuario: emailUsuario
       };
       const idCarrito = await saveCarritoService(carrito)
 

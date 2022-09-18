@@ -32,7 +32,7 @@ router.post('/registro', uploads.single('fotoUrl'), async (req, res, next) => {
     });
   }
 }, passport.authenticate('iniciarSesion'), (req, res) => {
-  const { nombre } = req.user
+  const { email } = req.user
   const host = req.headers.host
   res.redirect('/api/productos')
   // res.render('formProducts', { nombreUsuario: nombre, host: host });
@@ -70,6 +70,15 @@ router.get('/iniciarSesion', (_, res) => {
 router.get('/iniciarSesion/error', (_, res) => {
   res.render("iniciarSesionForm", { error: "Usurio o contrasena incorrecta" });
 })
+
+router.get('/cerrarSesion', (req, res) => {
+  const nombreUsuario = req.user.email;
+  req.logout(function (err) {
+    if (err) { return next(err); }
+    res.render('adios', { nombreUsuario })
+    res.set({ 'Refresh': '3; url=/api/productos' });
+  });
+});
 
 
 module.exports = router;

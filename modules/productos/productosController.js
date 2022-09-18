@@ -1,3 +1,4 @@
+const { estaAutenticado } = require('../../middlewares/autenticado');
 const {
   agregarProductoService,
   getAllProductosService,
@@ -104,8 +105,9 @@ router.put('/:id', async (req, res) => {
 
 // Vistas
 
-router.get('/', (_, res) => {
-  res.render('formProducts');
+router.get('/', estaAutenticado, (req, res) => {
+  const { email } = req.user
+  res.render('formProducts', { nombreUsuario: email });
 });
 
 module.exports = router;

@@ -25,25 +25,25 @@ router.post("/", async (_, res) => {
   };
 });
 
-router.get("/:id?", async (req, res) => {
-  try {
-    const id = req.params.id;
-    if (id) {
-      const carrito = await getCarritoByIdServices(id);
-      if (carrito) return res.status(200).json(carrito);
-      else return res.status(404).json({ message: "No se encontro el carrito" });
-    } else {
-      const carritos = await getAllCarritoService();
-      if (carritos) return res.status(200).json(carritos);
-      else return res.status(404).json({ message: "No se encontraron carritos" });
-    }
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      error: error.message,
-    });
-  };
-});
+// router.get("/:id?", async (req, res) => {
+//   try {
+//     const id = req.params.id;
+//     if (id) {
+//       const carrito = await getCarritoByIdServices(id);
+//       if (carrito) return res.status(200).json(carrito);
+//       else return res.status(404).json({ message: "No se encontro el carrito" });
+//     } else {
+//       const carritos = await getAllCarritoService();
+//       if (carritos) return res.status(200).json(carritos);
+//       else return res.status(404).json({ message: "No se encontraron carritos" });
+//     }
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       error: error.message,
+//     });
+//   };
+// });
 
 
 router.put('/:id/productos', async (req, res) => {
@@ -90,6 +90,17 @@ router.delete('/:id/productos/:id_prod', async (req, res) => {
     });
   }
 });
+
+router.get('/', async (req, res) => {
+  const { email } = req.user
+  const carritos = await getAllCarritoService();
+  if (carritos) {
+    const carritoUsuario = carritos.filter(car => car.emailUsuario == email);
+    console.log(carritoUsuario);
+    res.render('carritoUsuario', { carritoUsuario: carritoUsuario });
+  }
+
+})
 
 
 module.exports = router;

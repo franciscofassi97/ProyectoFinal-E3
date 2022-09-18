@@ -2,7 +2,7 @@
 <section id="sectionProductos">
 	<h1>Cargar producto</h1>
 	<div class="box">
-		<h1>Bienvenido {{nombreUsuario}}</h1>
+		<h1 id="{{nombreUsuario}}" class="emailUsuario">Bienvenido {{nombreUsuario}}</h1>
 		{{!-- <button onclick="cerrarSesion()">Cerrar Session</button> --}}
 		<form action="/api/usuarios/logout" method="post">
 			<input type="submit" value="Cerrar Session">
