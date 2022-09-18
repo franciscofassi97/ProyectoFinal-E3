@@ -96,11 +96,11 @@ router.get('/', async (req, res) => {
   const carritos = await getAllCarritoService();
   if (carritos) {
     const carritoUsuario = carritos.filter(car => car.emailUsuario == email);
-    console.log(carritoUsuario);
+
     res.render('carritoUsuario', { carritoUsuario: carritoUsuario });
   }
 
-})
+});
 
 
 module.exports = router;

@@ -1,4 +1,5 @@
 
+const { sendEmailOnRegistro } = require('../../nodemailer/nodemailer');
 const {
   createUsuarioDal,
   getAllUsuariosDal,
@@ -13,6 +14,9 @@ const getUsurioByEmailService = async (email) => {
 
 const createUsuarioService = async (usuario) => {
   const newUsuario = await createUsuarioDal(usuario);
+
+  sendEmailOnRegistro(usuario.email);
+
   return newUsuario;
 }
 
