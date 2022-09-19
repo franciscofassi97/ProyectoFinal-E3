@@ -3,6 +3,14 @@ const Handlebars = require('handlebars')
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const express = require('express');
 
+const cluster = require('cluster');
+const os = require('os');
+const { MODOFORK } = require('./config')
+
+const numeroCpu = os.cpus().length;
+const processID = process.pid;
+
+
 const app = express();
 // const connectDB = require('./config/mongo');
 // connectDB();
@@ -83,6 +91,23 @@ app.use('/api/usuarios', routerUsuarios);
 //   console.log(`Server corriendo en servidor ${PORT}`)
 // });
 
-httpServer.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+if (MODOFORK) {
+
+  httpServer.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+
+} else {
+  console.log(`Procesos: ${processID}, - isMaster: ${cluster.isMaster}, - numeroCpu: ${numeroCpu}`);
+  if (cluster.isPrimary) {
+    for (let i = 0; i < numeroCpu; i++) {
+      cluster.fork()
+    }
+    cluster.on('exit', (worker) => {
+      console.log(`Proceso ${worker.process.pid} terminado`);
+    })
+  } else {
+    httpServer.listen(PORT, () => { console.log(`Server is running on port ${PORT}`); });
+  }
+}
+
