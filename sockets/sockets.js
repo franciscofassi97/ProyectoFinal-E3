@@ -1,5 +1,7 @@
 const { getAllProductosService, agregarProductoService } = require('../modules/productos/productosServices');
 const { saveCarritoService, addProcutoToCarritoService } = require('../modules/carrito/carritoSerivices');
+const { sendEmailCompraRealizada } = require('../nodemailer/nodemailer');
+const { enviarMensajeDeWhatsApp } = require('../twilio/twilio');
 
 module.exports = (server) => {
   const { Server: IoServer } = require("socket.io");
@@ -37,8 +39,9 @@ module.exports = (server) => {
         console.log(productoAgregadoAlCarrito);
         if (!productoAgregadoAlCarrito) return error = true;
       };
-      const { enviarMensajeDeWhatsApp } = require('../twilio/twilio');
+
       enviarMensajeDeWhatsApp()
+      sendEmailCompraRealizada(arrayProductos, emailUsuario)
       socket.emit("finAgregarAlCarrito", error);
 
     });

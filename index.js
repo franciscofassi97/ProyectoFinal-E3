@@ -60,7 +60,6 @@ const routerUsuarios = require('./modules/usuarios/usuariosControllers');
 
 
 
-
 /*-----------------Inicio Configuracion de handlebars------------------*/
 const { engine } = require('express-handlebars');
 
