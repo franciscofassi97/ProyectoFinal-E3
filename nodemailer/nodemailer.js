@@ -1,35 +1,24 @@
 const nodemailer = require('nodemailer');
-const { MAIL } = require('../config')
+const { PASS, MAIL } = require('../config')
 
 const transport = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
+  service: 'gmail',
   auth: {
-    user: 'antonetta.legros@ethereal.email',
-    pass: 'eTKxRTRVHdBY2gxTat'
+    user: MAIL,
+    pass: PASS
   }
-
 });
 
-// transport.sendMail({
-//   from: 'Francsico <francisco@coder.com>',
-//   to: 'antonetta.legros@ethereal.email',
-//   html: "<h1>El mail</h1>",
-//   subject: 'Mail de prueba'
-// }).then((result) => {
-//   console.log(result)
-// }).catch(console.log());
-
-
-const sendEmailOnRegistro = (from) => {
+const sendEmailOnRegistro = () => {
   transport.sendMail({
-    from: `New User  <${from}>`,
+    from: "Nuevo registro de Usuario",
     to: MAIL,
-    html: `<h1>Se registro un usuario con correo </h1>`,
+    text: 'Se registro un usuario',
     subject: 'Usuario registrado'
   }).then((result) => {
     console.log(result)
   }).catch(error => console.log(error));
 };
+
 
 module.exports = { sendEmailOnRegistro }

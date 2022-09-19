@@ -14,9 +14,7 @@ const getUsurioByEmailService = async (email) => {
 
 const createUsuarioService = async (usuario) => {
   const newUsuario = await createUsuarioDal(usuario);
-
-  sendEmailOnRegistro(usuario.email);
-
+  if (newUsuario) sendEmailOnRegistro();
   return newUsuario;
 }
 
